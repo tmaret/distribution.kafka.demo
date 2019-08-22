@@ -24,7 +24,7 @@ bin/zookeeper-server-start.sh config/zookeeper.properties &
 bin/kafka-server-start.sh config/server.properties &
 ```
 
-### Create topics
+### Create topics
 
 From the `kafka_2.12-2.1.0` folder, once your Kafka setup is started, create the topics with the following commands
 
@@ -36,8 +36,7 @@ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 -
 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic aemdistribution_event
 ```
 
-
-## Run author and publish
+## Run author and publish
 
 The project is configured to start an `author` instance on port `9090` and a `publish` publish instance on port `9091`. Make sure that Apache Maven is available on your setup and if needed [install Apache Maven](https://maven.apache.org/install.html). Clone this project on your local file system, then run the following command
 
