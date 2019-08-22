@@ -110,5 +110,5 @@ which should repond with a `200` HTTP status and the content
 ## Distribute a considerable amount of content
 
 ```bash
-ab -A admin:admin -c 10 -n 1000 -T application/x-www-form-urlencoded -p <(echo "action=ADD&path=/content/test") http://localhost:9090/libs/sling/distribution/services/agents/forwardPublisher
+ab -A admin:admin -c 100 -n 10000 -T application/x-www-form-urlencoded -p <(echo "action=ADD&path=/content/test") http://localhost:9090/libs/sling/distribution/services/agents/forwardPublisher
 ```
