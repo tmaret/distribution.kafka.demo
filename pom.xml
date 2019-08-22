@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ======================================================================= -->
+    <!-- P A R E N T   P R O J E C T                                             -->
+    <!-- ======================================================================= -->
+    <parent>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>sling-bundle-parent</artifactId>
+        <version>35</version>
+        <relativePath />
+    </parent>
+
+    <!-- ======================================================================= -->
+    <!-- P R O J E C T                                                           -->
+    <!-- ======================================================================= -->
+    <artifactId>org.apache.sling.distribution.journal.kafka.demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>slingstart</packaging>
+
+    <name>Demonstration feature for Apache Sling Journal based Content Distribution on Apache Kafka</name>
+    <description>Sling feature to demonstrate Apache Sling Distribution on Kafka</description>
+
+    <scm/>
+
+    <!-- ======================================================================= -->
+    <!-- B U I L D                                                               -->
+    <!-- ======================================================================= -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-baseline-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>slingstart-maven-plugin</artifactId>
+                <version>1.7.16</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <keepLaunchpadRunning>true</keepLaunchpadRunning>
+                    <servers>
+                        <server>
+                            <id>author</id>
+                            <runmode>author</runmode>
+                            <port>9090</port>
+                        </server>
+                        <server>
+                            <id>publish</id>
+                            <runmode>publish</runmode>
+                            <port>9091</port>
+                        </server>
+                    </servers>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- ======================================================================= -->
+    <!-- D E P E N D E N C I E S                                                 -->
+    <!-- ======================================================================= -->
+    <dependencies/>
+
+</project>
+

@@ -1,0 +1,27 @@
+[feature name=distribution]
+
+[artifacts]
+    org.apache.sling/org.apache.sling.distribution.api/0.3.0
+    org.apache.sling/org.apache.sling.distribution.core/0.4.0
+
+[configurations]
+    org.apache.sling.distribution.resources.impl.DistributionServiceResourceProviderFactory-agents
+            kind="agent"
+            provider.roots=["/libs/sling/distribution/services/agents"]
+
+    org.apache.sling.serviceusermapping.impl.ServiceUserMapperImpl.amended-distribution-defaultAgentService
+        user.default=""
+        user.mapping=["org.apache.sling.distribution.core:defaultAgentService\=sling-distribution-service","org.apache.sling.distribution.core\=sling-distribution-service"]
+
+[:repoinit]
+    create path (sling:Folder) /var/sling/distribution
+    create path (sling:Folder) /var/sling/distribution/packages
+    create path (sling:Folder) /var/sling/distribution/diff
+
+    create service user sling-distribution-service
+
+    set ACL for sling-distribution-service
+        allow jcr:read,rep:write,jcr:nodeTypeManagement,jcr:readAccessControl on /
+    end
+
+

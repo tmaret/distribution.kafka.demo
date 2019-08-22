@@ -1,0 +1,57 @@
+[feature name=journal-distribution]
+
+[artifacts]
+    org.apache.sling/org.apache.sling.distribution.journal/0.1.4
+    org.apache.sling/org.apache.sling.distribution.journal.messages/0.1.2
+    com.google.protobuf/protobuf-java/3.7.0
+    org.apache.sling/org.apache.sling.distribution.journal.kafka/0.1.4
+    org.apache.servicemix.bundles/org.apache.servicemix.bundles.kafka-clients/2.1.0_1
+
+[configurations]
+    org.apache.sling.distribution.component.impl.DistributionComponentFactoryMap
+        mapping.agent=["pub:org.apache.sling.distribution.journal.impl.publisher.DistributionPublisherFactory"]
+
+    org.apache.sling.distribution.serialization.impl.vlt.VaultDistributionPackageBuilderFactory-journal_filevault
+        name="journal_filevault"
+        type="inmemory"
+        useBinaryReferences="true"
+
+    org.apache.sling.distribution.journal.kafka.KafkaClientProvider
+        kafkaBootstrapServers="localhost:9092"
+
+    org.apache.sling.serviceusermapping.impl.ServiceUserMapperImpl.amended-journal-distribution
+        user.default=""
+        user.mapping=["org.apache.sling.distribution.journal:bookkeeper\=sling-distribution-bookkeeper","org.apache.sling.distribution.journal:importer\=[sling-distribution-importer,sling-distribution-bookkeeper]"]
+
+[configurations runModes=author]
+    org.apache.sling.distribution.journal.impl.publisher.DistributionPublisherFactory-forwardPublisher
+        name="forwardPublisher"
+        packageBuilder.target="(name\=journal_filevault)"
+
+[configurations runModes=publish]
+    org.apache.sling.distribution.journal.impl.subscriber.DistributionSubscriberFactory-forwardSubscriber
+        name="forwardSubscriber"
+        agentNames=["forwardPublisher"]
+        packageBuilder.target="(name\=journal_filevault)"
+        editable=B"true"
+
+[:repoinit]
+    create path (sling:Folder) /var/sling/distribution/journal/packages
+    create path (sling:Folder) /var/sling/distribution/journal/stores
+
+    create service user sling-distribution-importer
+
+    set ACL for sling-distribution-importer
+        allow jcr:modifyAccessControl,jcr:readAccessControl,jcr:read,rep:write,jcr:versionManagement on /
+        allow jcr:read on /
+    end
+
+    set repository ACL for sling-distribution-importer
+        allow jcr:nodeTypeDefinitionManagement,rep:privilegeManagement,jcr:namespaceManagement
+    end
+
+    create service user sling-distribution-bookkeeper
+
+    set ACL for sling-distribution-bookkeeper
+        allow jcr:read,rep:write on /var/sling/distribution
+    end
