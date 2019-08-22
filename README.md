@@ -1,4 +1,4 @@
-# Apache Sling Journal based Content Distribution - Kafka Demo
+# Apache Sling Journal based Distribution - Kafka Demo
 
 This modules demonstrates [Apache Sling Journal Based Distribution](https://github.com/apache/sling-org-apache-sling-distribution-journal) on [Apache Kafka](https://kafka.apache.org).
 By going through the instructions, you will setup a basic Kafka deployment as well as Sling instances configured with Journal based distribution.
