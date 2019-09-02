@@ -12,7 +12,7 @@ By going through the instructions, you will setup a basic Kafka deployment as we
 The following commands will download Kafka and extract it locally in the `kafka_2.12-2.1.0` folder.
 
 ```bash
-curl  http://archive.apache.org/dist/kafka/2.1.0/kafka_2.12-2.1.0.tgz | tar xz
+curl  https://archive.apache.org/dist/kafka/2.1.0/kafka_2.12-2.1.0.tgz | tar xz
 ```
 
 ### Start
